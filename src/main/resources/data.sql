@@ -1,0 +1,55 @@
+INSERT
+INTO EASY_INTERVIEW.CANDIDATE
+    (ID, NAME)
+VALUES (1, 'Candidate 1'),
+       (2, 'Candidate 2');
+
+ALTER SEQUENCE EASY_INTERVIEW.CANDIDATE_SEQ RESTART WITH 3;
+
+INSERT INTO EASY_INTERVIEW.INTERVIEWER
+    (ID, CODE, NAME)
+VALUES (1, 'Code 1', 'Interviewer 1'),
+       (2, 'Code 2', 'Interviewer 2');
+
+ALTER SEQUENCE EASY_INTERVIEW.INTERVIEWER_SEQ RESTART WITH 3;
+
+INSERT INTO EASY_INTERVIEW.SLOT
+    (ID, DATETIME, CANDIDATE_ID, INTERVIEWER_ID, DTYPE)
+VALUES (1, '2022-01-02 10:00:00', 1, null, 'C'),
+       (2, '2022-01-03 10:00:00', 1, null, 'C'),
+       (3, '2022-01-02 10:00:00', 2, null, 'C'),
+       (4, '2022-01-06 16:00:00', 2, null, 'C'),
+       (5, '2022-01-02 10:00:00', null, 1, 'I'),
+       (6, '2022-01-04 10:00:00', null, 1, 'I'),
+       (7, '2022-01-02 10:00:00', null, 2, 'I'),
+       (8, '2022-01-06 16:00:00', null, 2, 'I');
+
+ALTER SEQUENCE EASY_INTERVIEW.SLOT_SEQ RESTART WITH 9;
+
+DROP TABLE EASY_INTERVIEW.PERIOD_V;
+
+CREATE
+OR REPLACE VIEW EASY_INTERVIEW.PERIOD_V AS
+SELECT Q1.DATETIME || '_' || Q1.CANDIDATE_ID || '_' || Q2.INTERVIEWER_ID AS ID
+     , Q1.DATETIME
+     , Q1.CANDIDATE_ID
+     , Q1.NAME                                                           AS CANDIDATE_NAME
+     , Q2.INTERVIEWER_ID
+     , Q2.NAME                                                           AS INTERVIEWER_NAME
+FROM (
+         SELECT S.DATETIME,
+                S.CANDIDATE_ID,
+                C.NAME
+         FROM EASY_INTERVIEW.SLOT S
+                  INNER JOIN EASY_INTERVIEW.CANDIDATE C ON C.ID = S.CANDIDATE_ID
+         WHERE S.CANDIDATE_ID IS NOT NULL
+     ) Q1,
+     (
+         SELECT S.DATETIME,
+                S.INTERVIEWER_ID,
+                I.NAME
+         FROM EASY_INTERVIEW.SLOT S
+                  INNER JOIN EASY_INTERVIEW.INTERVIEWER I ON I.ID = S.INTERVIEWER_ID
+         WHERE S.INTERVIEWER_ID IS NOT NULL
+     ) Q2
+WHERE Q1.DATETIME = Q2.DATETIME;

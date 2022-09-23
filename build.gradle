@@ -1,0 +1,67 @@
+plugins {
+    id 'org.springframework.boot' version '2.5.5'
+    id 'io.spring.dependency-management' version '1.0.11.RELEASE'
+    id 'java'
+}
+
+group = 'com.bridge'
+version = '0.0.1-SNAPSHOT'
+sourceCompatibility = '11'
+
+configurations {
+    compileOnly {
+        extendsFrom annotationProcessor
+    }
+}
+
+ext {
+    set('queryDSLVersion', "4.4.0")
+    set('springfoxSwaggerVersion', "3.0.0")
+    set('mapstructVersion', "1.4.2.Final")
+    set('restAssuredVersion', "4.2.1")
+}
+
+bootJar {
+    archiveFileName = "app.jar"
+}
+
+repositories {
+    mavenCentral()
+}
+
+dependencies {
+    implementation 'org.springframework.boot:spring-boot-starter-data-rest'
+    implementation 'org.springframework.boot:spring-boot-starter-data-jpa'
+    implementation 'org.springframework.boot:spring-boot-starter-validation'
+
+    // database
+    runtimeOnly 'com.h2database:h2'
+
+    // Lombok
+    compileOnly 'org.projectlombok:lombok'
+    annotationProcessor 'org.projectlombok:lombok'
+
+    // QueryDSL
+    implementation "com.querydsl:querydsl-jpa:${queryDSLVersion}"
+    annotationProcessor "com.querydsl:querydsl-apt:${queryDSLVersion}:jpa"
+    annotationProcessor 'javax.annotation:javax.annotation-api'
+    implementation 'org.bitbucket.gt_tech:spring-data-querydsl-value-operators:4.0.0'
+
+    // MapStruct
+    implementation "org.mapstruct:mapstruct:${mapstructVersion}"
+    annotationProcessor "org.mapstruct:mapstruct-processor:${mapstructVersion}"
+
+    // Swagger - API Documentation
+    implementation "io.springfox:springfox-boot-starter:${springfoxSwaggerVersion}"
+    implementation "io.springfox:springfox-swagger-ui:${springfoxSwaggerVersion}"
+
+    testImplementation 'org.springframework.boot:spring-boot-starter-test'
+
+    testRuntimeOnly 'com.h2database:h2'
+    testImplementation 'org.mockito:mockito-junit-jupiter:3.8.0'
+    testImplementation "io.rest-assured:rest-assured:${restAssuredVersion}"
+}
+
+tasks.named('test') {
+    useJUnitPlatform()
+}
