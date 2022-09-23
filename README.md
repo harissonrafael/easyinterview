@@ -66,7 +66,7 @@ possible to search. The others actions are not allowed and if executed, an error
 
 Examples to find, create, update and delete Candidate and their available times
 
-> Note: To execute some action, just click on the desired subsection, on the `Try it` button, fill in the required fields (when applicable) and press `Execute`;
+> Note: To execute some action, just click on the desired subsection, on the `Try it out` button, fill in the required fields (when applicable) and press `Execute`;
 
 #### Retrieve candidates (GET)
 
@@ -162,7 +162,7 @@ Just run what is in the note above using the id of the entity you want to remove
 
 Examples to find, create, update and delete Interviewer and their available times
 
-> Note: To execute some action, just click on the desired subsection, on the `Try it` button, fill in the required fields (when applicable) and press `Execute`;
+> Note: To execute some action, just click on the desired subsection, on the `Try it out` button, fill in the required fields (when applicable) and press `Execute`;
 
 #### Retrieve interviewers (GET)
 
@@ -262,7 +262,7 @@ Just run what is in the note above using the id of the entity you want to remove
 Examples for making dynamic queries, leveraging the QueryDSL and Operators libraries. This approach can be used in all
 entities.
 
-> Note: To execute some action, just click on the desired subsection, on the `Try it` button, fill in the required fields (when applicable) and press `Execute`;
+> Note: To execute some action, just click on the desired subsection, on the `Try it out` button, fill in the required fields (when applicable) and press `Execute`;
 
 > Note 2: In this section the actions to save or update entity is blocked.
 
