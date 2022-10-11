@@ -27,7 +27,7 @@ command `java -jar`
 java -jar app.jar
 ```
 
-- Vá para o navegador e acesse a URL: `http://localhost:8080/api/swagger-ui/`. On this page you can create, update or
+- Go to the browser and access a URL: `http://localhost:8080/api/swagger-ui/`. On this page you can create, update or
   delete Candidate and Interview and their slot. in addition to researching the periods in which it is possible to have
   an interview. For more instructions, see the flows section just below
 
